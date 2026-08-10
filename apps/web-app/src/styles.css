@@ -1,0 +1,618 @@
+/* ======================================================
+   Contact Sheet — a darkroom/film-lab visual identity
+   for browsing photos & videos.
+   ====================================================== */
+
+:root {
+  --bg: #15130f;
+  --surface: #1e1b15;
+  --surface-raised: #262119;
+  --border: #3a3226;
+  --border-soft: #2a2519;
+  --ivory: #f3ecdd;
+  --muted: #a79c87;
+  --amber: #e8a33d;
+  --amber-dim: #a97a34;
+  --teal: #3fa9a0;
+  --teal-dim: #2c7a73;
+  --danger: #e0674f;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Public Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Subtle film-grain texture over the whole app — ambient, not distracting */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  position: relative;
+  z-index: 2;
+  padding: 48px 32px 28px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.masthead-top {
+  margin-bottom: 32px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1;
+}
+
+.wordmark-accent {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--amber);
+}
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--muted);
+  margin: 10px 0 0;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+/* Search — styled like a film strip with sprocket holes along the bottom edge */
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 16px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.search-wrap:focus-within {
+  border-color: var(--teal);
+}
+
+.search-icon {
+  width: 17px;
+  height: 17px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 15px 12px;
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.sprockets {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 10px;
+}
+
+.sprocket-hole {
+  width: 6px;
+  height: 3px;
+  background: var(--bg);
+  border-radius: 1px 1px 0 0;
+  margin-bottom: -1px;
+}
+
+/* Aperture-style toggle */
+.aperture-toggle {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.aperture-toggle button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.aperture-toggle button svg {
+  width: 17px;
+  height: 17px;
+}
+
+.aperture-toggle button:hover {
+  color: var(--ivory);
+}
+
+.aperture-toggle button.active {
+  background: var(--amber);
+  color: #1a1508;
+}
+
+.aperture-toggle button:nth-child(2).active {
+  background: var(--teal);
+  color: #0b1f1d;
+}
+
+.aperture-toggle button + button {
+  border-left: 1px solid var(--border);
+}
+
+/* Film strip divider */
+.film-strip {
+  position: relative;
+  z-index: 2;
+  height: 14px;
+  background: #0d0b08;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.film-strip-hole {
+  width: 7px;
+  height: 5px;
+  background: var(--bg);
+  border-radius: 1px;
+}
+
+/* ---------- Main / status banners ---------- */
+
+main {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 32px 80px;
+}
+
+.status-banner {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  padding: 14px 0;
+}
+
+.status-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10.5px;
+  color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.error-banner .status-label {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.load-more-banner {
+  justify-content: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+}
+
+.empty-frame {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--border);
+  margin-bottom: 12px;
+}
+
+/* ---------- Grid (contact sheet) ---------- */
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 3px;
+  background: var(--border-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.grid-item {
+  position: relative;
+  padding: 0;
+  border: none;
+  background: var(--surface);
+  cursor: pointer;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.85) contrast(1.02);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+}
+
+.grid-item:hover img {
+  transform: scale(1.06);
+  filter: saturate(1.05) contrast(1.05);
+}
+
+/* Light-leak sweep on hover — the signature interaction */
+.grid-item-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(232, 163, 61, 0.28) 48%,
+    rgba(63, 169, 160, 0.22) 58%,
+    transparent 72%
+  );
+  transform: translateX(-140%);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.grid-item:hover .grid-item-scrim {
+  transform: translateX(0%);
+}
+
+.frame-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: rgba(243, 236, 221, 0.55);
+  background: rgba(13, 11, 8, 0.55);
+  padding: 2px 6px;
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.grid-item:hover .frame-number {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.play-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 11, 8, 0.6);
+  border-radius: 50%;
+  color: var(--teal);
+}
+
+.play-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+.grid-item-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 10px 7px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--ivory);
+  background: linear-gradient(to top, rgba(13, 11, 8, 0.85), transparent);
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grid-item:hover .grid-item-caption {
+  transform: translateY(0);
+}
+
+/* ---------- Lightbox ---------- */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 6, 0.92);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 88vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lightbox-content img {
+  max-width: 88vw;
+  max-height: 74vh;
+  display: block;
+  object-fit: contain;
+}
+
+.lightbox-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.lightbox-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.lightbox-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.download-btn {
+  padding: 10px 18px;
+  border-radius: 3px;
+  border: 1px solid var(--amber);
+  background: transparent;
+  color: var(--amber);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.download-btn:hover {
+  background: var(--amber);
+  color: #1a1508;
+}
+
+/* ---------- Reel overlay ---------- */
+
+.reel-overlay {
+  position: fixed;
+  inset: 0;
+  background: #08070500;
+  background: black;
+  z-index: 200;
+}
+
+.reel-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 210;
+  background: rgba(30, 27, 21, 0.7);
+  border: 1px solid var(--border);
+  color: var(--ivory);
+  font-size: 22px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.reel-swiper {
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+.reel-item {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.reel-item video {
+  max-height: 100vh;
+  max-width: 100vw;
+  cursor: pointer;
+}
+
+.reel-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(13, 11, 8, 0.55);
+  border: 1px solid rgba(243, 236, 221, 0.3);
+  color: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.reel-play-overlay svg {
+  width: 26px;
+  height: 26px;
+  margin-left: 3px;
+}
+
+.reel-item-error {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reel-error-poster {
+  max-height: 60vh;
+  max-width: 90vw;
+  object-fit: contain;
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+.reel-error-message {
+  text-align: center;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.reel-error-message p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.reel-meta {
+  position: absolute;
+  bottom: 28px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .masthead {
+    padding: 32px 18px 20px;
+  }
+
+  main {
+    padding: 20px 18px 60px;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+}
+
+/* ---------- Accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-item img,
+  .grid-item-scrim,
+  .frame-number,
+  .grid-item-caption {
+    transition: none;
+  }
+}
+
+button:focus-visible,
+input:focus-visible:not(.search-input) {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}

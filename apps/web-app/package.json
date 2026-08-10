@@ -1,0 +1,25 @@
+{
+  "name": "web-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "media-core": "file:../../packages/media-core",
+    "media-react": "file:../../packages/media-react",
+    "media-ui-react": "file:../../packages/media-ui-react"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  }
+}
