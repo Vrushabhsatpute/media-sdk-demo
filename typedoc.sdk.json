@@ -1,0 +1,16 @@
+{
+  "entryPoints": [
+    "packages/media-core/src/index.ts",
+    "packages/media-react/src/index.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "tsconfig": "tsconfig.docs.json",
+  "out": "docs/sdk",
+  "name": "Media SDK — media-core + media-react",
+  "readme": "docs/sdk-readme.md",
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "hideGenerator": true,
+  "sort": ["source-order"],
+  "categorizeByGroup": true
+}

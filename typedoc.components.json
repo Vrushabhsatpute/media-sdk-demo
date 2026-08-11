@@ -1,0 +1,12 @@
+{
+  "entryPoints": ["packages/media-ui-react/src/index.ts"],
+  "tsconfig": "tsconfig.docs.json",
+  "out": "docs/components",
+  "name": "media-ui-react — Headless Component Library",
+  "readme": "docs/components-readme.md",
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "hideGenerator": true,
+  "sort": ["source-order"],
+  "categorizeByGroup": true
+}
