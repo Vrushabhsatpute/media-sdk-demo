@@ -3,8 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "docs:sdk": "typedoc --options typedoc.sdk.json",
-    "docs:components": "typedoc --options typedoc.components.json"
+    "docs:sdk": "node node_modules/typedoc/dist/lib/cli.js --options typedoc.sdk.json",
+    "docs:components": "node node_modules/typedoc/dist/lib/cli.js --options typedoc.components.json"
   },
   "devDependencies": {
     "typedoc": "^0.26.0",
