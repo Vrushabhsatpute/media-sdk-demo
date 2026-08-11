@@ -136,7 +136,7 @@ export function App() {
           <h1 className="wordmark">
             Media<span className="wordmark-accent">Exploration</span>
           </h1>
-          <p className="tagline">Converting your thimking in picture</p>
+          <p className="tagline">Converting your thinking in picture</p>
         </div>
 
         <div className="controls">
