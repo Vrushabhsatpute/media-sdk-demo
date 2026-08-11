@@ -134,10 +134,9 @@ export function App() {
       <header className="masthead">
         <div className="masthead-top">
           <h1 className="wordmark">
-          Media<span className="wordmark-accent">Exploration</span>
+            Media<span className="wordmark-accent">Exploration</span>
           </h1>
-          <p className="tagline">just tell me What are you thinking
-          </p>
+          <p className="tagline">Converting your thimking in picture</p>
         </div>
 
         <div className="controls">
